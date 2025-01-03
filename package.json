@@ -1,0 +1,134 @@
+{
+  "name": "react-calendar",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "homepage": "/calendarapp",
+  "scripts": {
+    "watch:dev-client": "webpack serve --open --mode development --config webpack.development.js --config-name client",
+    "start:dev-server": "node-dev build/server.js",
+    "watch:dev-server": "webpack --mode development --config webpack.development.js --config-name server --watch",
+    "dev": "npm run lint && npm run prettier && npm run build:dev && npm-run-all --parallel start:dev-server watch:dev-server watch:dev-client",
+    "build:dev": "rm -rf build && webpack --mode development --config webpack.development.js --config-name server",
+    "build": "rm -rf build && npm-run-all build:server build:client",
+    "build:server": "webpack --mode production --config webpack.production.js --config-name server",
+    "build:client": "webpack --mode production --config webpack.production.js --config-name client",
+    "start": "node ./build/server.js",
+    "pm2": "NODE_ENV=production pm2 start npm --name 'calendarapp' -- start",
+    "lint": "eslint ./src --fix --ext .js,.jsx",
+    "prettier": "prettier --write .",
+    "test": "jest --coverage --verbose"
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.25.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-loader": "^4.0.2",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.23.2",
+    "html-webpack-harddisk-plugin": "^2.0.0",
+    "husky": "^7.0.4",
+    "lint-staged": "^12.1.3",
+    "node-dev": "^7.0.0",
+    "prettier": "^2.5.1",
+    "webpack-dev-server": "^4.9.3"
+  },
+  "dependencies": {
+    "@babel/core": "^7.18.6",
+    "@babel/plugin-proposal-class-properties": "^7.18.6",
+    "@babel/plugin-transform-runtime": "^7.18.6",
+    "@babel/preset-env": "^7.18.6",
+    "@babel/preset-react": "^7.13.13",
+    "@reduxjs/toolkit": "^1.7.1",
+    "async": "^3.2.0",
+    "axios": "^0.21.1",
+    "babel-loader": "^8.2.5",
+    "babel-plugin-react-css-modules": "^5.2.6",
+    "bcrypt": "^5.0.1",
+    "bootstrap": "^4.6.0",
+    "core-js": "^2.6.5",
+    "cors": "^2.8.5",
+    "css-loader": "^6.7.1",
+    "date-fns": "^2.30.0",
+    "dayjs": "^1.11.7",
+    "dotenv": "^16.0.1",
+    "dotenv-webpack": "^7.1.1",
+    "express": "^4.17.1",
+    "faker": "^5.5.3",
+    "file-loader": "^6.2.0",
+    "focus-trap-react": "^10.1.2",
+    "html-loader": "^3.1.2",
+    "html-webpack-plugin": "^5.5.0",
+    "jest": "^28.1.3",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.21",
+    "mini-css-extract-plugin": "^2.6.1",
+    "mongoose": "^5.13.2",
+    "npm-run-all": "^4.1.5",
+    "react": "^18.2.0",
+    "react-big-calendar": "^1.6.9",
+    "react-bootstrap": "^1.5.2",
+    "react-day-picker": "^8.7.1",
+    "react-dom": "^18.2.0",
+    "react-dropdown-select": "^4.7.4",
+    "react-popper": "^2.3.0",
+    "react-redux": "^7.2.4",
+    "react-router-dom": "^5.2.0",
+    "react-time-picker": "^6.2.0",
+    "react-use": "^17.4.0",
+    "redux": "^4.1.0",
+    "redux-thunk": "^2.3.0",
+    "regenerator-runtime": "^0.13.9",
+    "style-loader": "^3.3.1",
+    "uuid": "^8.3.2",
+    "validator": "^13.6.0",
+    "webpack": "^5.73.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-merge": "^5.8.0",
+    "webpack-node-externals": "^3.0.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*/**/*.{js,jsx}": [
+      "eslint",
+      "prettier --write .",
+      "git add"
+    ]
+  },
+  "eslintConfig": {
+    "parser": "babel-eslint",
+    "plugins": [
+      "react",
+      "prettier"
+    ],
+    "extends": [
+      "eslint:recommended",
+      "plugin:react/recommended"
+    ],
+    "env": {
+      "browser": true,
+      "node": true,
+      "es6": true,
+      "jest": true
+    },
+    "ignorePatterns": [
+      "node_modules",
+      "build"
+    ],
+    "rules": {
+      "react/display-name": 0,
+      "react/prop-types": 0,
+      "no-undef": 1,
+      "no-unused-vars": 1,
+      "no-const-assign": 1,
+      "no-console": 1,
+      "no-useless-catch": 1,
+      "no-debugger": 1
+    }
+  }
+}
